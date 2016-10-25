@@ -250,7 +250,7 @@ class Statement
         while (true) {
             try {
                 $response = $this->_connection->post(Urls::URL_CURSOR, $this->getConnection()->json_encode_wrapper($data), array());
-                return new Cursor($this->_connection, $response->getJson(), $this->getCursorOptions());
+                return static::getCursor($this->_connection, $response->getJson(), $this->getCursorOptions());
             } catch (ServerException $e) {
                 if ($tries++ >= $this->_retries) {
                     throw $e;
@@ -264,6 +264,10 @@ class Statement
         }
     }
 
+    protected static function getCursor($connection, $json, $options)
+    {
+        return new Cursor( $connection, $json, $options );
+    }
 
     /**
      * Explain the statement's execution plan

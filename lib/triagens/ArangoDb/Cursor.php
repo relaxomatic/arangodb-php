@@ -31,7 +31,7 @@ class Cursor implements
      *
      * @var Connection
      */
-    private $_connection;
+    protected $_connection;
     /**
      * Cursor options
      *
@@ -51,21 +51,21 @@ class Cursor implements
      *
      * @var array
      */
-    private $_result;
+    protected $_result;
 
     /**
      * "has more" indicator - if true, the server has more results
      *
      * @var bool
      */
-    private $_hasMore;
+    protected $_hasMore;
 
     /**
      * cursor id - might be NULL if cursor does not have an id
      *
      * @var mixed
      */
-    private $_id;
+    protected $_id;
 
     /**
      * current position in result set iteration (zero-based)
@@ -79,7 +79,7 @@ class Cursor implements
      *
      * @var int
      */
-    private $_length;
+    protected $_length;
 
     /**
      * full count of the result set (ignoring the outermost LIMIT)
@@ -98,7 +98,7 @@ class Cursor implements
     /**
      * number of HTTP calls that were made to build the cursor result
      */
-    private $_fetches = 1;
+    protected $_fetches = 1;
 
     /**
      * whether or not the query result was served from the AQL query result cache
@@ -378,7 +378,7 @@ class Cursor implements
      *
      * @return void
      */
-    private function add(array $data)
+    protected function add(array $data)
     {
         foreach ($this->sanitize($data) as $row) {
             if (!is_array($row) || (isset($this->_options[self::ENTRY_FLAT]) && $this->_options[self::ENTRY_FLAT])) {
@@ -672,7 +672,7 @@ class Cursor implements
      *
      * @return void
      */
-    private function updateLength()
+    protected function updateLength()
     {
         $this->_length = count($this->_result);
     }
@@ -683,7 +683,7 @@ class Cursor implements
      *
      * @return string
      */
-    private function url()
+    protected function url()
     {
         if (isset($this->_options[self::ENTRY_BASEURL])) {
             return $this->_options[self::ENTRY_BASEURL];
